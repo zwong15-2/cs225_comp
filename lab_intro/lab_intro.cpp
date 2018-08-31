@@ -55,7 +55,21 @@ PNG grayscale(PNG image) {
  * @return The image with a spotlight.
  */
 PNG createSpotlight(PNG image, int centerX, int centerY) {
-
+  for(unsigned x = 0; x < image.width(); x++){
+    for(unsigned y = 0; y < image.height(); y++){
+     int horizontal = x - centerX;
+     int vertical = y - centerY;
+     double spotlight_distance = sqrt((horizontal*horizontal)+(vertical*vertical));
+     double decrease_luminance = spotlight_distance * 0.5;
+     HSLAPixel &pixel = image.getPixel(x,y);
+     if(spotlight_distance > 160){
+       (pixel.l -= 0.8 * pixel.l);
+     }
+     else{
+     pixel.l -= (decrease_luminance / 100) * pixel.l;
+     }
+    }
+  }
   return image;
   
 }
@@ -72,6 +86,17 @@ PNG createSpotlight(PNG image, int centerX, int centerY) {
  * @return The illinify'd image.
 **/
 PNG illinify(PNG image) {
+  for(unsigned x = 0; x < image.width(); x++) {
+    for(unsigned y = 0; y < image.height(); y++) {
+      HSLAPixel & pixel = image.getPixel(x,y);
+      if(pixel.h < 104 || pixel.h > 320){
+        pixel.h = 11;
+      }
+      else{
+        pixel.h = 216;
+      }
+    }
+  }
 
   return image;
 }
@@ -90,6 +115,15 @@ PNG illinify(PNG image) {
 * @return The watermarked image.
 */
 PNG watermark(PNG firstImage, PNG secondImage) {
+  for(unsigned x = 0; x < secondImage.width(); x++){
+    for(unsigned y = 0; y < secondImage.height(); y++){
+      HSLAPixel &pixel_one = secondImage.getPixel(x,y);
+      if(pixel_one.l == 1){
+        HSLAPixel &pixel_two = firstImage.getPixel(x,y);
+        pixel_two.l += 0.2;
+      }
+    }
+  }
 
   return firstImage;
 }

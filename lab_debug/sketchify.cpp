@@ -19,31 +19,27 @@ HSLAPixel* myFavoriteColor(double hue) {
 
 void sketchify(std::string inputFile, std::string outputFile) {
     // Load in.png
-    PNG* original = NULL;
-
+    PNG* original = new PNG();
     original->readFromFile(inputFile);
     unsigned width = original->width();
     unsigned height = original->height();
-
     // Create out.png
-    PNG* output;
-    setupOutput(width, height);
+    PNG* output = setupOutput(width, height);
 
     // Load our favorite color to color the outline
-    HSLAPixel* myPixel = myFavoriteColor(-1);
+    HSLAPixel* myPixel = myFavoriteColor(215);
 
     // Go over the whole image, and if a pixel differs from that to its upper
     // left, color it my favorite color in the output
-    for (unsigned y = 1; 0 < y < height; y++) {
-        for (unsigned x = 1; 0 < x < width; x++) {
+    for (unsigned x = 1; (0 < x) && (x < width); x++) {
+        for (unsigned y = 1; (0 < y) && (y < height); y++) {
             // Calculate the pixel difference
             HSLAPixel& prev = original->getPixel(x - 1, y - 1);
             HSLAPixel& curr = original->getPixel(x, y);
             double diff = std::fabs(curr.h - prev.h);
-
             // If the pixel is an edge pixel,
             // color the output pixel with my favorite color
-            HSLAPixel currOutPixel = (*output).getPixel(x, y);
+            HSLAPixel & currOutPixel = output->getPixel(x,y);
             if (diff > 20) {
                 currOutPixel = *myPixel;
             }
@@ -54,7 +50,7 @@ void sketchify(std::string inputFile, std::string outputFile) {
     output->writeToFile(outputFile);
 
     // Clean up memory
-    delete myPixel;
-    delete output;
-    delete original;
+       
+       delete output;
+       delete original;
 }

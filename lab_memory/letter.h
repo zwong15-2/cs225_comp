@@ -27,6 +27,8 @@ class Letter
      */
     Letter();
 
+    Letter(const Letter& other);
+
     /**
      * Adds one additional student to the letter group.
      */
@@ -38,4 +40,9 @@ class Letter
      * @return Whether the parameter is less than this Letter.
      */
     bool operator<(const Letter& other) const;
+
+    Letter& operator=(const Letter& other);
+
+    void copy(const Letter& other);
+
 };

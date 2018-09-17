@@ -18,12 +18,12 @@ int main()
 {
     cout << endl;
 
-    fileio::init();
-    Allocator theAllocator("students.txt", "rooms.txt");
-    theAllocator.allocate();
-    theAllocator.printRooms();
-    fileio::halt();
+      fileio::init();
+      Allocator theAllocator("students.txt", "rooms.txt");
+      theAllocator.allocate();
+      theAllocator.printRooms();
+      fileio::halt();
 
-    cout << endl;
+      cout << endl;
     return 0;
 }

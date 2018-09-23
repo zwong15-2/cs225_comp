@@ -53,13 +53,13 @@ const StickerSheet & StickerSheet::operator=(const StickerSheet & other){
 
 void StickerSheet::changeMaxStickers(unsigned new_max){
 
-	if(new_max < max){
+	/*if(new_max < max){
 		for(unsigned x = new_max - 1; x < max; x++){
 			if( *(stickersheet + x) != NULL){
-				return;
+				break;
 			}
 		}
-	}
+	}*/
 
 	if(new_max == max){
 		return;
@@ -71,19 +71,21 @@ void StickerSheet::changeMaxStickers(unsigned new_max){
 		int* copy_sticker_x_coor = new int [new_max];
 		int* copy_sticker_y_coor = new int [new_max];
 
-		for(unsigned y = 0; y < new_max; y++){
+		for(unsigned y = 0; y < new_max && y < count; y++){
 			copy_stickersheet[y] = stickersheet[y];
 			copy_sticker_x_coor[y] = sticker_x_coor[y];
 			copy_sticker_y_coor[y] = sticker_y_coor[y];
-		}
+		}	
 
 		clear();
 
 		stickersheet = copy_stickersheet;
 		sticker_x_coor = copy_sticker_x_coor;
 		sticker_y_coor = copy_sticker_y_coor;
-		count = new_max;
 		max = new_max;
+		if(new_max < count){
+			count = new_max;
+		}
 
 	}
 
@@ -99,9 +101,9 @@ void StickerSheet::changeMaxStickers(unsigned new_max){
 			copy_sticker_y_coor2[a] = sticker_y_coor[a];
 		}
 
-		for(unsigned b = max - 1; b < new_max; b++){
+	/*	for(unsigned b = max - 1; b < new_max; b++){
 			copy_stickersheet2[b] = NULL;
-		}
+		}*/
 
 		clear();
 		stickersheet = copy_stickersheet2;
@@ -215,8 +217,7 @@ Image StickerSheet::render() const{
 			}
 
 			for(size_t a = 0; a < copy_width; a++){
-				for(size_t b = 0; b < copy_height; b++){
-				
+				for(size_t b = 0; b < copy_height; b++){				
 					HSLAPixel & pixel_sticker = stickersheet[y]->getPixel(a,b);
 					if(pixel_sticker.a != 0){
 						base_picture->getPixel(a + copy_x_coor, b + copy_y_coor) = pixel_sticker;
@@ -233,7 +234,7 @@ Image StickerSheet::render() const{
 
 void StickerSheet::clear(){
 
-	/*for(unsigned a = 0; a < max; a++){
+	/*for(unsigned a = 0; a < count; a++){
 		if( *(stickersheet + a) != NULL){
 			delete *(stickersheet + a);
 			*(stickersheet + a) = NULL;
@@ -241,13 +242,17 @@ void StickerSheet::clear(){
 	}*/
 
 	delete [] stickersheet;
-	stickersheet = NULL;
-
-	delete [] sticker_x_coor;
-	stickersheet = NULL;
-
-	delete [] sticker_y_coor;
-	stickersheet = NULL;
+	
+	
+	if(sticker_x_coor != NULL){
+		delete [] sticker_x_coor;
+	
+	}
+	
+	if(sticker_y_coor != NULL){
+		delete [] sticker_y_coor;
+	
+	}
 
 }
 
@@ -255,18 +260,10 @@ void StickerSheet::copy(const StickerSheet & other){
 
 	max = other.max;
 	count = other.count;
+	base_picture = new Image(*other.base_picture);
 	stickersheet = new Image *[max];
 	sticker_x_coor = new int[max];
 	sticker_y_coor = new int[max];
-
-	for(unsigned b = 0; b < count; b++){
-		*(stickersheet + b) = NULL;
-	}
-
-	for(unsigned c = 0; c < count; c++){
-		*(sticker_x_coor + c) = 0;
-		*(sticker_y_coor + c) = 0;
-	}
 
 	for(unsigned a = 0; a < count; a++){
 

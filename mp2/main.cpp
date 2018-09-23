@@ -19,12 +19,12 @@ int main() {
  Image youtube; youtube.readFromFile("youtube.png");
 
  StickerSheet sheet(alma, 4);
- sheet.addSticker(i, 15, 200);
- sheet.addSticker(lightning, 1, 1);
- sheet.addSticker(barney, 2, 2);
- sheet.addSticker(youtube, 6, 5);
+ sheet.addSticker(i, 300, 200);
+ sheet.addSticker(i, 500, 126);
+ sheet.addSticker(i, 256, 234);
+ sheet.addSticker(i, 57, 79);
  Image result = sheet.render();
- result.writeToFile("MyImage.png");
+ result.writeToFile("myImage.png");
 
 
 

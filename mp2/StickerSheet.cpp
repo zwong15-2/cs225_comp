@@ -77,7 +77,9 @@ void StickerSheet::changeMaxStickers(unsigned new_max){
 			copy_sticker_y_coor[y] = sticker_y_coor[y];
 		}	
 
-		clear();
+		delete [] stickersheet;
+		delete []  sticker_x_coor;
+		delete [] sticker_y_coor;
 
 		stickersheet = copy_stickersheet;
 		sticker_x_coor = copy_sticker_x_coor;
@@ -105,7 +107,9 @@ void StickerSheet::changeMaxStickers(unsigned new_max){
 			copy_stickersheet2[b] = NULL;
 		}*/
 
-		clear();
+		delete [] stickersheet;
+		delete [] sticker_x_coor;
+		delete [] sticker_y_coor;
 		stickersheet = copy_stickersheet2;
 		sticker_x_coor = copy_sticker_x_coor2;
 		sticker_y_coor = copy_sticker_y_coor2;
@@ -242,6 +246,8 @@ void StickerSheet::clear(){
 	}*/
 
 	delete [] stickersheet;
+
+	delete base_picture;
 	
 	
 	if(sticker_x_coor != NULL){

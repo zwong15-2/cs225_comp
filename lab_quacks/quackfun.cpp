@@ -3,6 +3,9 @@
  * This is where you will implement the required functions for the
  *  stacks and queues portion of the lab.
  */
+#include <iostream>
+#include <string>
+using namespace std;
 
 namespace QuackFun {
 
@@ -27,9 +30,21 @@ T sum(stack<T>& s)
 {
 
     // Your code here
-    return T(); // stub return value (0 for primitive types). Change this!
-                // Note: T() is the default value for objects, and 0 for
-                // primitive types
+    T top_element = s.top();
+    s.pop();
+	
+	if(s.empty()){
+	s.push(top_element);
+	return top_element;
+	}
+
+	else{
+	T previous = sum(s);
+	s.push(top_element);
+	return(previous + top_element);
+	}    
+    
+  
 }
 
 /**
@@ -53,7 +68,37 @@ bool isBalanced(queue<char> input)
 {
 
     // @TODO: Make less optimistic
-    return true;
+    
+	stack<char> bracket_holder;
+	int tracker = input.size();
+	char checker;
+	char holder;
+	char left('[');
+	char right(']');
+		
+ 
+	for(int i = 0; i < tracker; i++){
+		holder = input.front();		 
+		if(holder == left ){
+			bracket_holder.push(holder);
+		}
+		if(holder == right){
+			if(bracket_holder.size() == 0){
+				return false;
+			}
+			else{
+				bracket_holder.pop();
+			}
+		}
+		input.pop();
+		
+	}
+
+	if(bracket_holder.size() == 0){		
+		return true;
+	}
+
+	return false; 
 }
 
 /**
@@ -75,6 +120,44 @@ void scramble(queue<T>& q)
     // optional: queue<T> q2;
 
     // Your code here
+    int queue_number = 1;
+	int size = int(q.size());
+	int tracker = 0;
+	int temp;
+	int temp2;
+
+	while(tracker < size){
+
+		if(queue_number % 2 == 1){
+			temp = queue_number;
+			if(temp > size-tracker){
+				temp = size - tracker;
+			}
+		for(int i = 0; i < temp; i++){
+			q.push(q.front());
+			q.pop();
+		}
+		tracker += temp;
+		queue_number++;
+		}
+
+		else{
+		temp2 = queue_number;
+		if(temp2 > size-tracker){
+			temp2 = size-tracker;
+		}
+		for(int i = 0; i < temp2; i++){
+			s.push(q.front());
+			q.pop();
+			}
+		for(int j = 0; j < temp2; j++){
+			q.push(s.top());
+			s.pop();
+		}
+		tracker += temp2;
+		queue_number++;
+		}
+	}
 }
 
 /**
@@ -96,11 +179,23 @@ template <typename T>
 bool verifySame(stack<T>& s, queue<T>& q)
 {
     bool retval = true; // optional
-    // T temp1; // rename me
+      
     // T temp2; // rename :)
 
     // Your code here
+	if(s.empty()){   //used in case stack goes to base case
+		return true;
+	}
 
+	T temp1 = s.top(); //stack contents will be stored in temporary holder during recursive step
+	s.pop(); //releases value from stack
+	retval = verifySame(s,q); //recurisve step, stack will be empty and queue will not be changed
+	retval = (retval && temp1==q.front()); //checks stack and queue values
+
+	q.push(q.front()); //pushing front queue value in back
+	q.pop(); //releasing queue value
+	s.push(temp1); //pushing previous stack value
+	
     return retval;
 }
 

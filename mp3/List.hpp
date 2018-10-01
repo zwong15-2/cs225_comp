@@ -8,10 +8,14 @@
  * Returns a ListIterator with a position at the beginning of
  * the List.
  */
+#include "List.h"
+#include <iostream>
+using namespace std;
+
 template <typename T>
 typename List<T>::ListIterator List<T>::begin() const {
   // @TODO: graded in MP3.1
-  return List<T>::ListIterator(nullptr);
+  return List<T>::ListIterator(head_);
 }
 
 /**
@@ -20,72 +24,150 @@ typename List<T>::ListIterator List<T>::begin() const {
 template <typename T>
 typename List<T>::ListIterator List<T>::end() const {
   // @TODO: graded in MP3.1
-  return List<T>::ListIterator(nullptr);
+
+return List<T>::ListIterator(tail_->next);
 }
 
 /**
- * Destroys the current List. This function should ensure that
- * memory does not leak on destruction of a list.
- */
+* Destroys the current List. This function should ensure that
+* memory does not leak on destruction of a list.
+*/
 template <typename T>
 List<T>::~List() {
-  /// @todo Graded in MP3.1
+/// @todo Graded in MP3.1
+ _destroy();
 }
-
 /**
- * Destroys all dynamically allocated memory associated with the current
- * List class.
- */
+* Destroys all dynamically allocated memory associated with the current
+* List class.
+*/
 template <typename T>
 void List<T>::_destroy() {
-  /// @todo Graded in MP3.1
+/// @todo Graded in MP3.1
+ListNode *curr = head_;
+while(curr != NULL){
+	ListNode *temp = curr;
+	curr = curr->next;
+	delete temp;
+	}
+tail_ = NULL;
+length_ = 0;
 }
-
 /**
- * Inserts a new node at the front of the List.
- * This function **SHOULD** create a new ListNode.
- *
- * @param ndata The data to be inserted.
- */
+* Inserts a new node at the front of the List.
+* This function **SHOULD** create a new ListNode.
+*
+* @param ndata The data to be inserted.
+*/
 template <typename T>
-void List<T>::insertFront(T const & ndata) {
-  /// @todo Graded in MP3.1
-}
+		void List<T>::insertFront(T const & ndata) {
+		  /// @todo Graded in MP3.1
+		  ListNode * new_node = new ListNode(ndata);
+		  if(head_ != NULL){
+			new_node->next = head_;
+			head_->prev = new_node;
+			head_ = new_node;
+			}
+		  else{
+			new_node->next = NULL;
+			new_node->prev = NULL;
+			head_ = new_node;
+			tail_ = head_;
+			}
 
-/**
- * Inserts a new node at the back of the List.
- * This function **SHOULD** create a new ListNode.
- *
- * @param ndata The data to be inserted.
- */
-template <typename T>
-void List<T>::insertBack(const T & ndata) {
-  /// @todo Graded in MP3.1
-}
+		length_++;
 
-/**
- * Reverses the current List.
- */
-template <typename T>
-void List<T>::reverse() {
-  reverse(head_, tail_);
-}
+		}
 
-/**
- * Helper function to reverse a sequence of linked memory inside a List,
- * starting at startPoint and ending at endPoint. You are responsible for
- * updating startPoint and endPoint to point to the new starting and ending
- * points of the rearranged sequence of linked memory in question.
- *
- * @param startPoint A pointer reference to the first node in the sequence
- *  to be reversed.
- * @param endPoint A pointer reference to the last node in the sequence to
- *  be reversed.
- */
-template <typename T>
-void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
-  /// @todo Graded in MP3.1
-}
+		/**
+		 * Inserts a new node at the back of the List.
+		 * This function **SHOULD** create a new ListNode.
+		 *
+		 * @param ndata The data to be inserted.
+		 */
+		template <typename T>
+		void List<T>::insertBack(const T & ndata) {
+		  /// @todo Graded in MP3.1
+		  ListNode *new_node = new ListNode(ndata);
+		  if(tail_ != NULL){
+			new_node->prev = tail_;
+			tail_->next = new_node;
+			tail_ = new_node;
+			}
+		  else{
+			new_node->prev = NULL;
+			new_node->next = NULL;
+			head_ = new_node;
+			tail_ = head_;
+			}
+
+		length_++;
+
+		new_node = NULL;
+		}
+
+		/**
+		 * Reverses the current List.
+		 */
+		template <typename T>
+		void List<T>::reverse() {
+		  reverse(head_, tail_);
+		}
+
+		/**
+		 * Helper function to reverse a sequence of linked memory inside a List,
+		 * starting at startPoint and ending at endPoint. You are responsible for
+		 * updating startPoint and endPoint to point to the new starting and ending
+		 * points of the rearranged sequence of linked memory in question.
+		 *
+		 * @param startPoint A pointer reference to the first node in the sequence
+		 *  to be reversed.
+		 * @param endPoint A pointer reference to the last node in the sequence to
+		 *  be reversed.
+		 */
+		template <typename T>
+		void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
+		  /// @todo Graded in MP3.1
+		  if(startPoint == NULL || endPoint == NULL || startPoint == endPoint){
+			return;
+		  }
+		  ListNode *curr = startPoint; 
+		  ListNode *next_ = endPoint->next;
+		  ListNode *end = endPoint;
+		  ListNode *prev_ = startPoint->prev;
+		  ListNode *temp;
+		  ListNode *temp2;
+
+		  while(startPoint != endPoint){
+			
+			temp = startPoint->prev;
+			startPoint->prev = startPoint->next;
+			startPoint->next = temp;
+			startPoint = startPoint->prev;
+
+		  }
+
+			temp2 = startPoint->prev;
+			startPoint->prev = prev_;
+			endPoint = curr;
+			endPoint->next = next_;
+			startPoint->next = temp2;
+
+			if(prev_ == NULL){
+				head_ = startPoint;
+			}
+
+			else{
+				prev_->next = startPoint;
+				if(next_ == NULL){
+					tail_ = endPoint;
+				}
+				else{
+					next_->prev = endPoint;
+				}
+			}
+		  
+		}
 
 /**
  * Reverses blocks of size n in the current List. You should use your
@@ -95,7 +177,33 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
  */
 template <typename T>
 void List<T>::reverseNth(int n) {
-  /// @todo Graded in MP3.1
+	// @todo Graded in MP3.1
+	if(head_ == NULL){
+		return;
+	  }
+ 
+	ListNode *start = head_;
+	ListNode *end = start;
+
+	while(end->next != NULL && start->next != NULL){
+		end = start->next;
+		for(int x = 0; x < n-1; x++){
+			if(end->next != NULL){
+				end = end->next;
+			}
+			else{
+				break;
+			}
+		}
+		if (end->next == NULL) {
+			reverse(start, end);
+		}
+		else {
+			reverse(start, end->prev);
+		}
+
+		start = end;
+	}
 }
 
 /**
@@ -110,6 +218,24 @@ void List<T>::reverseNth(int n) {
 template <typename T>
 void List<T>::waterfall() {
   /// @todo Graded in MP3.1
+  if(head_ == NULL || head_->next == NULL){
+	return;
+  }
+
+  ListNode *traverse = head_;
+  ListNode *place_holder = head_->next;
+
+  while(traverse->next != NULL && traverse->next->next != NULL){
+	traverse = traverse->next;
+    traverse->next->prev = traverse->prev;
+	traverse->prev->next = traverse->next;
+	place_holder = traverse->next;
+	tail_->next = traverse;
+	traverse->next = NULL;
+	traverse->prev = tail_;
+	tail_ = traverse;
+	traverse = place_holder;
+	}
 }
 
 /**

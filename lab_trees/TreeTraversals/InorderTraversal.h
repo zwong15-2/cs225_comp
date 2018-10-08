@@ -26,10 +26,29 @@ class InorderTraversal : public TreeTraversal<T> {
     InorderTraversal(typename BinaryTree<T>::Node* root)
 	    : root(root)
     {
-      stack.push(root);	
+      	
       // your code here
-    }
+	  
+ /*do{
+	 while(root != NULL){
+		stack.push(root);
+		root = root->left;
+	  }
 
+	  if(!stack.empty()){
+		root = stack.top();
+		stack.pop();
+		root = root->right;
+	  }
+	}while(!stack.empty() && root != NULL);*/
+		
+		stack.push(root);
+		add(root);
+
+	
+      
+
+	}
     /**
      * Returns an iterator for the traversal starting at the root node.
      * Important for sake of looping through an iterator's contents.
@@ -63,7 +82,25 @@ class InorderTraversal : public TreeTraversal<T> {
      */	
     void add(typename BinaryTree<T>::Node *& treeNode) {
       // your code here
-      return;	
+      	
+
+	/*	if(treeNode->right != NULL) {
+			
+			add(treeNode->right);
+		}
+		else {
+			stack.push(treeNode);
+		}
+
+		if(treeNode->left != NULL) {
+			stack.push(treeNode->left);
+		}
+		else {
+			stack.push(treeNode);
+		}*/
+
+		
+		
     }
 
     /**

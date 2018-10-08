@@ -218,6 +218,23 @@ class BinaryTree
          * @param treeVector stores nodes in order
          */
         void inOrder(Node *subRoot, vector<T>& treeVector);
+		
+		void mirror(Node *&subRoot);
+		
+		int &sumDistances(int distance, const Node *subRoot, int &sum) const;
+
+		T maximum_leftsubtree(const Node *subRoot) const;
+
+		T minimum_rightsubtree(const Node *subRoot) const;
+
+		bool isOrdered(const Node *subRoot) const;
+
+		bool isOrdered2(const Node *subRoot) const;
+
+		void paths(vector <const BinaryTree<T>::Node *> &paths, const Node *subRoot) const;
+
+		int size(Node *subRoot) const;
+
 };
 
 #include "binarytree_given.cpp"

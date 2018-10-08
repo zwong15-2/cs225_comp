@@ -296,7 +296,20 @@ List<T> List<T>::split(int splitPoint) {
 template <typename T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   /// @todo Graded in MP3.2
-  return NULL;
+  ListNode *node_holder = start;
+
+  if(splitPoint == 0 || start == NULL){
+	return start;
+  } 
+
+  for(int x = 0; x < splitPoint; x++){
+	node_holder = node_holder->next;
+  }
+
+  node_holder->prev->next = NULL;
+  node_holder->prev = NULL;
+ 
+  return node_holder;
 }
 
 /**
@@ -337,6 +350,57 @@ void List<T>::mergeWith(List<T> & otherList) {
 template <typename T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) {
   /// @todo Graded in MP3.2
+  if(first == NULL || second == NULL){
+	return NULL;
+  }
+
+  if(first == second){
+	return first;
+  }
+
+  ListNode *list1 = first;
+  ListNode *list2 = second;
+  ListNode *head_holder = first;
+  ListNode *new_list;
+
+  if(first->data < second->data){
+	list1 = first->next;
+  }
+  else{
+	head_holder = second;
+	list2 = second->next;
+  }
+
+  new_list = head_holder;
+
+  while(list1 != NULL && list2 != NULL){
+	if(list1->data < list2->data || list2 == NULL){
+		new_list->next = list1;
+		list1->prev = new_list;
+		new_list = list1;
+		list1 = list1->next;
+	}
+	else{
+		new_list->next = list2;
+		list2->prev = new_list;
+		new_list = list2;
+		list2 = list2->next;
+	}
+}
+
+	if(list1 == NULL){
+		new_list->next = list2;
+		list2->prev = new_list;
+	}
+
+	else{
+		new_list->next = list1;
+		list1->prev = new_list;
+	}
+
+	second = NULL;
+	return head_holder; 
+
   return NULL;
 }
 
@@ -365,5 +429,25 @@ void List<T>::sort() {
 template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
-  return NULL;
+  ListNode *new_head = start;
+  ListNode *new_head2 = start;
+  int partition = chainLength/2;
+
+  if(chainLength == 1){
+	start->next = start->prev = NULL;	
+	return start;
+  }
+
+  else{
+	for(int x = 0; x < partition; x++){
+		new_head2 = new_head2->next;
+	}
+	new_head2->prev->next = NULL;
+	new_head2->prev = NULL;
+    start = mergesort(start, partition);
+	new_head2 = mergesort(new_head2, chainLength - partition);
+	new_head = merge(start, new_head2);
+	}
+  
+  return new_head;
 }

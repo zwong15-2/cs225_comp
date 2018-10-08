@@ -31,6 +31,7 @@ class AbstractSyntaxTree
         double eval() const;
     private:
         // You may add any helper functions you like.....
+        double evaluation(Node *root) const;
 };
 
 #include "abstractsyntaxtree_given.cpp"

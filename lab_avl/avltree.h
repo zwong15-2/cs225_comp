@@ -15,6 +15,7 @@
 
 #pragma once
 
+
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -233,6 +234,10 @@ class AVLTree
     vector<string> functionCalls;
     /** This variable gets the inorder traversal of the AVL tree. **/
     vector<K> inorder;
+
+	int balance(Node*& subtree);
+	void calculate_height(Node*& subtree);
+	Node *& right_most_node(Node*& subtree);
 };
 
 #include "avltree_given.cpp"

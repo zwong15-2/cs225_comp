@@ -15,8 +15,7 @@
 
 
 
-//using namespace std;
-
+//using namespace std
 
 /**
  * Initializes a depth-first ImageTraversal on a given `png` image,
@@ -40,6 +39,10 @@ DFS::DFS(const PNG & png, const Point & start, double tolerance) {
 		visited.push_back(std::vector<bool>(png_height, val));
 	}
 
+	for(int i = 0; i < png_width; i++){
+		added.push_back(std::vector<bool>(png_height, val));
+	}
+
 	png_visit.push(start);
 	
 
@@ -59,9 +62,11 @@ ImageTraversal::Iterator DFS::begin() {
  */
 ImageTraversal::Iterator DFS::end() {
   /** @todo [Part 1] */
-  DFS *traversal_dfs_end = new DFS(image, starting_point, check_tolerance); 
-  return ImageTraversal::Iterator(*traversal_dfs_end, starting_point);
-  
+ // Point *end = new Point(png_width + 1, png_height + 1);
+ // DFS *traversal_dfs = new DFS(image, *end, check_tolerance);
+ // ImageTraversal::Iterator *end_point = new ImageTraversal::Iterator(*traversal_dfs, *end);
+  return ImageTraversal::Iterator();
+   
 }
 
 /**
@@ -108,9 +113,11 @@ void DFS::add(const Point & point) {
  */
 Point DFS::pop() {
   /** @todo [Part 1] */
-  Point temp = png_visit.top();
-  png_visit.pop();
-  return temp;
+  	Point temp = png_visit.top();
+  	png_visit.pop();
+  	return temp;
+  
+ 
 }
 
 /**
@@ -119,6 +126,7 @@ Point DFS::pop() {
 Point DFS::peek() const {
   /** @todo [Part 1] */
   return png_visit.top();
+	
 }
 
 /**
@@ -145,6 +153,23 @@ void DFS::mark_visited(const Point & point){
 bool DFS::check_visited(unsigned x, unsigned y){
 
 	if(visited[x][y] == true){
+		return true;
+	}
+
+	else{
+		return false;
+	}
+}
+
+void DFS::mark_added(unsigned x, unsigned y){
+
+	added[x][y] = true;
+
+}
+
+bool DFS::check_added(unsigned x, unsigned y){
+
+	if(added[x][y] == true){
 		return true;
 	}
 

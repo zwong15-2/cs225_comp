@@ -12,7 +12,7 @@
 #include "ImageTraversal.h"
 #include "BFS.h"
 
-using namespace cs225;
+
 
 /**
  * Initializes a breadth-first ImageTraversal on a given `png` image,
@@ -24,6 +24,22 @@ using namespace cs225;
  */
 BFS::BFS(const PNG & png, const Point & start, double tolerance) {  
   /** @todo [Part 1] */
+	png_width = png.width();
+	png_height = png.height();
+	val = false;
+	starting_point = start;
+	check_tolerance = tolerance;
+	image = png;
+
+	for(int i = 0; i < png_width; i++){
+		visited.push_back(std::vector<bool>(png_height, val));
+	}
+	
+	for(int i = 0; i < png_width; i++){
+		added.push_back(std::vector<bool>(png_height, val));
+	}
+
+	//png_visit.push(start);
 }
 
 /**
@@ -31,7 +47,8 @@ BFS::BFS(const PNG & png, const Point & start, double tolerance) {
  */
 ImageTraversal::Iterator BFS::begin() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator();
+  BFS *traversal_bfs = new BFS(image, starting_point, check_tolerance);
+  return ImageTraversal::Iterator(*traversal_bfs, starting_point);
 }
 
 /**
@@ -39,6 +56,9 @@ ImageTraversal::Iterator BFS::begin() {
  */
 ImageTraversal::Iterator BFS::end() {
   /** @todo [Part 1] */
+  //Point *end = new Point(png_width+1, png_height+1);
+  //BFS *traversal_bfs2 = new BFS(image, *end, check_tolerance);
+  //ImageTraversal::Iterator *end_point = new ImageTraversal::Iterator(*traversal_bfs2, *end); 
   return ImageTraversal::Iterator();
 }
 
@@ -47,6 +67,9 @@ ImageTraversal::Iterator BFS::end() {
  */
 void BFS::add(const Point & point) {
   /** @todo [Part 1] */
+
+	png_visit.push(point);
+	
 }
 
 /**
@@ -54,7 +77,15 @@ void BFS::add(const Point & point) {
  */
 Point BFS::pop() {
   /** @todo [Part 1] */
-  return Point(0, 0);
+	if(png_visit.empty() != true){
+	Point temp = png_visit.front();
+	png_visit.pop();
+	return temp;  
+	}
+
+	else{
+	return starting_point;
+	}
 }
 
 /**
@@ -62,7 +93,12 @@ Point BFS::pop() {
  */
 Point BFS::peek() const {
   /** @todo [Part 1] */
-  return Point(0, 0);
+  if(png_visit.empty() != true){
+  return png_visit.front();
+  }
+  else{
+	return starting_point;
+  }
 }
 
 /**
@@ -70,5 +106,46 @@ Point BFS::peek() const {
  */
 bool BFS::empty() const {
   /** @todo [Part 1] */
-  return true;
+  return png_visit.empty();
+}
+
+double BFS::get_tolerance(){
+	return check_tolerance;
+}
+PNG BFS::get_png(){
+	return image;
+}
+
+void BFS::mark_visited(const Point & point){
+
+	visited[point.x][point.y] = true;
+
+}
+
+bool BFS::check_visited(unsigned x, unsigned y){
+
+	if(visited[x][y] == true){
+		return true;
+	}
+
+	else{
+		return false;
+	}
+}
+
+void BFS::mark_added(unsigned x, unsigned y){
+
+	added[x][y] = true;
+
+}
+
+bool BFS::check_added(unsigned x, unsigned y){
+
+	if(added[x][y] == true){
+		return true;
+	}
+
+	else{
+		return false;
+	}
 }

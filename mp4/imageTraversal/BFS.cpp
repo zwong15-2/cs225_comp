@@ -39,7 +39,7 @@ BFS::BFS(const PNG & png, const Point & start, double tolerance) {
 		added.push_back(std::vector<bool>(png_height, val));
 	}
 
-	//png_visit.push(start);
+	png_visit.push(starting_point);
 }
 
 /**
@@ -67,9 +67,7 @@ ImageTraversal::Iterator BFS::end() {
  */
 void BFS::add(const Point & point) {
   /** @todo [Part 1] */
-
 	png_visit.push(point);
-	
 }
 
 /**
@@ -77,15 +75,9 @@ void BFS::add(const Point & point) {
  */
 Point BFS::pop() {
   /** @todo [Part 1] */
-	if(png_visit.empty() != true){
 	Point temp = png_visit.front();
-	png_visit.pop();
-	return temp;  
-	}
-
-	else{
-	return starting_point;
-	}
+  	png_visit.pop();
+  	return temp;
 }
 
 /**
@@ -93,12 +85,7 @@ Point BFS::pop() {
  */
 Point BFS::peek() const {
   /** @todo [Part 1] */
-  if(png_visit.empty() != true){
   return png_visit.front();
-  }
-  else{
-	return starting_point;
-  }
 }
 
 /**

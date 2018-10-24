@@ -57,7 +57,6 @@ ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
 
 	// current = traversal->peek();
 	//current = traversal->pop();
-
 	if(traversal->check_visited(current.x, current.y) != true){
 		
 		traversal->mark_visited(current);
@@ -118,7 +117,7 @@ ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
 			}
 		}
 	}
-	current = traversal->pop();
+	//current = traversal->pop();
   return *this;
 }
 
@@ -148,14 +147,10 @@ bool ImageTraversal::Iterator::operator!=(const ImageTraversal::Iterator &other)
   if(!this_empty) {this_empty = traversal->empty(); }
   if(!other_empty) {other_empty = other.traversal->empty(); }
 
-  if(this_empty && other_empty){
-	 return false;
-  }
-  else if((!this_empty) && (!other_empty)){
- 	 return(traversal != other.traversal);
-  }
-  else{
-	return true;
-  }
+  if(this_empty && other_empty) return false;
+  else if((!this_empty) && (!other_empty)) return (traversal != other.traversal);
+  else return true;
+  
+	
 }
 

@@ -27,5 +27,8 @@ public:
 private:
 	/** @todo [Part 2] */
 	/** add private members here*/
+	PNG image;
+   // std::queue<ImageTraversal> *floodfill_traversal;
+   // std::queue<ColorPicker> *floodfill_color;
 
 };

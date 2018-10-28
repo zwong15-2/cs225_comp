@@ -7,7 +7,9 @@
  * @author Matt Joras
  * @date Winter 2013
  */
-
+#include "btree.h"
+#include <vector>
+#include <iostream>
 using std::vector;
 
 /**
@@ -47,8 +49,22 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * a leaf and we didn't find the key in it, then we have failed to find it
      * anywhere in the tree and return the default V.
      */
+	if(!subroot->elements.empty() && first_larger_idx < subroot->elements.size()){
+	    
+		if(subroot->elements[first_larger_idx].key == key){
+			return subroot->elements[first_larger_idx].value;
+		}
+	}
 
-    return V();
+	if(subroot->is_leaf){
+		return V();
+
+	}
+		else{
+			return find(subroot->children[first_larger_idx],key);
+		}
+	
+
 }
 
 /**
@@ -146,6 +162,22 @@ void BTree<K, V>::split_child(BTreeNode* parent, size_t child_idx)
 
 
     /* TODO Your code goes here! */
+	DataPair insert_ = *mid_elem_itr;
+	parent->elements.insert(elem_itr, insert_);
+	parent->children.insert(child_itr, new_right);
+	new_right->elements.assign(mid_elem_itr + 1, new_left->elements.end());
+
+	if(!new_left->is_leaf){
+		new_right->children.assign(mid_child_itr, new_left->children.end());
+	}
+
+	new_left->elements.assign(new_left->elements.begin(), mid_elem_itr);
+	
+	if(!new_left->is_leaf){
+		new_left->children.assign(new_left->children.begin(), mid_child_itr);
+	}
+	return;
+	
 }
 
 /**
@@ -170,4 +202,29 @@ void BTree<K, V>::insert(BTreeNode* subroot, const DataPair& pair)
     size_t first_larger_idx = insertion_idx(subroot->elements, pair);
 
     /* TODO Your code goes here! */
+	if(!subroot->elements.empty() && first_larger_idx < subroot->elements.size()){
+		
+		if(subroot->elements[first_larger_idx].key == pair.key){
+			
+			return;
+		}
+	}
+
+	if(subroot->is_leaf){
+
+		subroot->elements.insert(subroot->elements.begin() + first_larger_idx, pair);
+
+	}
+
+	else{
+
+		BTreeNode *new_node = subroot->children[first_larger_idx];
+		insert(new_node, pair);
+	
+		if(new_node->elements.size() >= order){
+
+			split_child(subroot, first_larger_idx);
+		}
+	}
+return;
 }

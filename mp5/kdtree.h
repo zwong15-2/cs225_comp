@@ -259,6 +259,20 @@ class KDTree
     /**
      * @todo Add your helper functions here.
      */
+
+	vector<Point<Dim>> points;
+
+	void kdtree_helper(KDTreeNode*& root, vector<Point<Dim>>& list, int left, int right, int dimension);
+
+	Point<Dim> quick_select(vector<Point<Dim>>& list, int left, int right, int k, int dimension);
+
+	int partition(vector<Point<Dim>>& list, int left, int right, int pIndex, int dimension);
+
+	bool radius_small(const Point<Dim>& target, const Point<Dim>& curr, const Point<Dim>& potential, int cur_dim) const;
+
+	Point<Dim> findNearestNeighbor(const Point<Dim>& query, Point<Dim> curr, int start_idx, int end_idx, int dimension);
+
+	
 };
 
 #include "kdtree.hpp"

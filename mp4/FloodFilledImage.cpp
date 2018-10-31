@@ -32,8 +32,8 @@ FloodFilledImage::FloodFilledImage(const PNG & png) {
  */
 void FloodFilledImage::addFloodFill(ImageTraversal & traversal, ColorPicker & colorPicker) {
   /** @todo [Part 2] */
- // floodfill_traversal->push(traversal);
- // floodfill_color->push(colorPicker);
+  floodfill_traversal->push(*traversal);
+  floodfill_color->push(*colorPicker);
   
 }
 
@@ -59,5 +59,6 @@ void FloodFilledImage::addFloodFill(ImageTraversal & traversal, ColorPicker & co
 Animation FloodFilledImage::animate(unsigned frameInterval) const {
   Animation animation;
   /** @todo [Part 2] */
+  
   return animation;
 }

@@ -268,9 +268,9 @@ class KDTree
 
 	int partition(vector<Point<Dim>>& list, int left, int right, int pIndex, int dimension);
 
-	bool radius_small(const Point<Dim>& target, const Point<Dim>& curr, const Point<Dim>& potential, int cur_dim) const;
+	int cal_distance(const Point<Dim>& point1, const Point<Dim>& point2) const;
 
-	Point<Dim> findNearestNeighbor(const Point<Dim>& query, Point<Dim> curr, int start_idx, int end_idx, int dimension);
+	void findNearestNeighbor_helper(const Point<Dim>& query, Point<Dim>& currentBest, int left, int right, int dimension, int min_distance, bool & first) const;
 
 	
 };

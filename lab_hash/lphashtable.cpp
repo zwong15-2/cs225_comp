@@ -87,7 +87,23 @@ void LPHashTable<K, V>::insert(K const& key, V const& value)
      * Also, don't forget to mark the cell for probing with should_probe!
      */
 
-    (void) key;   // prevent warnings... When you implement this function, remove this line.
+    elems++;
+	
+	if(shouldResize()){
+		resizeTable();
+	}
+
+	size_t index = hash(key, size);
+
+	while(table[index] != NULL){
+
+		index = (index + 1) % size;
+	}
+
+	table[index] = new pair <K, V>(key, value);
+	should_probe[index] = true;
+	
+	(void) key;
     (void) value; // prevent warnings... When you implement this function, remove this line.
 }
 
@@ -97,6 +113,13 @@ void LPHashTable<K, V>::remove(K const& key)
     /**
      * @todo: implement this function
      */
+
+	int index = findIndex(key);
+	if(index != -1 ){
+		delete table[index];
+		table[index] = NULL;
+		--elems;
+	}
 }
 
 template <class K, class V>
@@ -108,6 +131,22 @@ int LPHashTable<K, V>::findIndex(const K& key) const
      *
      * Be careful in determining when the key is not in the table!
      */
+	size_t  index = hash(key, size);
+	size_t start = index;
+
+	while(should_probe[index]){
+
+		if(table[index] != NULL && table[index]->first == key){
+			return index;
+		}
+
+		index = (index + 1) % size;
+		
+		if(index == start){
+
+			break;
+		}
+	}
 
     return -1;
 }
@@ -166,4 +205,30 @@ void LPHashTable<K, V>::resizeTable()
      *
      * @hint Use findPrime()!
      */
+	 size_t newSize = findPrime(size * 2);
+	 pair<K, V> **temp = new pair<K, V>*[newSize];
+	 delete [] should_probe;
+	 should_probe = new bool[newSize];
+
+	 for(size_t x = 0; x < newSize; x++){
+
+		temp[x] = NULL;
+		should_probe[x] = false;
+	 }
+
+	 for(size_t y = 0; y < size; y++){
+		if(table[y] != NULL){
+		size_t index = hash(table[y]->first, newSize);
+		while(temp[index] != NULL){
+
+			index = (index + 1) % newSize;
+		}
+		temp[index] = table[y];
+		should_probe[index] = true;
+		}
+	}
+
+	delete [] table;
+	table = temp;
+	size = newSize;
 }

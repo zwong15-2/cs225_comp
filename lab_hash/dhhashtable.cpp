@@ -88,9 +88,26 @@ void DHHashTable<K, V>::insert(K const& key, V const& value)
      *  0.7). **Do this check *after* increasing elems!!** Also, don't
      *  forget to mark the cell for probing with should_probe!
      */
+	++elems;
 
-    (void) key;   // prevent warnings... When you implement this function, remove this line.
-    (void) value; // prevent warnings... When you implement this function, remove this line.
+	if(shouldResize()){
+		resizeTable();
+	}
+
+	size_t index = hash(key, size);
+	size_t index2 = secondary_hash(key, size);
+	int i = 1;
+	while(table[index] != NULL){
+		index = (index + (i * secondary_hash(key, size))) % size;
+		i++;
+	}
+
+	table[index] = new pair<K, V>(key, value);
+	should_probe[index] = true;
+	
+ //  (void) key;   // prevent warnings... When you implement this function, remove this line.
+  // (void) value; // prevent warnings... When you implement this function, remove this line.
+
 }
 
 template <class K, class V>
@@ -99,6 +116,13 @@ void DHHashTable<K, V>::remove(K const& key)
     /**
      * @todo Implement this function
      */
+	int index = findIndex(key);
+	if(index != -1){
+		delete table[index];
+		table[index] = NULL;
+		--elems;
+	}
+	
 }
 
 template <class K, class V>
@@ -107,7 +131,48 @@ int DHHashTable<K, V>::findIndex(const K& key) const
     /**
      * @todo Implement this function
      */
-    return -1;
+/*	size_t index = hash(key, size);
+	size_t index2 = secondary_hash(key, size);
+	size_t start = index;
+
+	if(table[index] == NULL){
+		index = index2;
+	}
+
+	while(1){
+		
+		if(table[index] != NULL && table[index]->first == key){
+			return index;
+		}
+
+		if(index == start){
+			break;
+		}
+
+		index = (index + (index2 * secondary_hash(key, size))) % size;
+
+	}*/
+
+
+	size_t index = hash(key, size);
+	size_t index2 = secondary_hash(key, size);
+	size_t start = index;
+	int i = 1;
+
+	if(should_probe[index] == true){
+		while(table[index] != NULL){
+			if(table[index]->first == key){
+				return index;
+			}
+
+			else{
+				index = (index + (i * secondary_hash(key, size))) % size;
+				i++;
+			}
+		}
+	}
+
+return -1;
 }
 
 template <class K, class V>

@@ -85,8 +85,8 @@ KDTree<Dim>::KDTree(const KDTree<Dim>& other) {
   /**
    * @todo Implement this function!
    */
-
-	//Nothing...yet
+	destroy(root);
+	root = copy(other.root);
 }
 
 template <int Dim>
@@ -94,7 +94,11 @@ const KDTree<Dim>& KDTree<Dim>::operator=(const KDTree<Dim>& rhs) {
   /**
    * @todo Implement this function!
    */ 
-
+  if(this != rhs){
+	
+		destroy(root);
+		root = copy(rhs.root);
+  }
 
   return *this;
 }
@@ -105,7 +109,7 @@ KDTree<Dim>::~KDTree() {
    * @todo Implement this function!
    */
 
-	//Nothing...yet
+	destroy();
 }
 
 template <int Dim>
@@ -342,4 +346,37 @@ int KDTree<Dim>::cal_distance(const Point<Dim>& point1, const Point<Dim>& point2
 			distance += (point1[i] - point2[i]) * (point1[i] - point2[i]);
 		}
 		return distance;
+}
+
+template <int Dim>
+void KDTree<Dim>::destroy(){
+	if(root != nullptr){
+
+		destroy(root);
+		root = nullptr;
+	}
+}
+
+template <int Dim>
+typename KDTree<Dim>::KDTreeNode* KDTree<Dim>::copy(const KDTreeNode* node){
+	if(node == nullptr){
+
+		return nullptr;
+	}
+
+	KDTreeNode* new_node = new KDTreeNode(*node);
+	return new_node;
+}
+
+template <int Dim>
+void KDTree<Dim>::destroy(KDTreeNode* node){
+
+	if(node == NULL){
+		return;
+	}
+
+	destroy(node->left);
+	destroy(node->right);
+
+	delete node;
 }

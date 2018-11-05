@@ -272,6 +272,12 @@ class KDTree
 
 	void findNearestNeighbor_helper(const Point<Dim>& query, Point<Dim>& currentBest, int left, int right, int dimension, int min_distance, bool & first) const;
 
+	void destroy();
+	
+	typename KDTree<Dim>::KDTreeNode* copy(const KDTreeNode* node);
+	
+	void destroy(KDTreeNode* node);
+
 	
 };
 

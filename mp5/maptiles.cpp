@@ -21,7 +21,36 @@ MosaicCanvas* mapTiles(SourceImage const& theSource,
     /**
      * @todo Implement this function!
      */
+	if(theTiles.empty()){
+		return NULL;
+	}
+	
+	map<Point<3>, int> tileMap;
+	vector<Point<3>> tiles;
+	tiles.resize(theTiles.size());
+	for(size_t x = 0; x < theTiles.size(); x++){
 
-    return NULL;
+		LUVAPixel p = theTiles[x].getAverageColor();
+		double arr[3] = {p.l, p.u, p.v };
+		Point<3> point(arr);
+		tiles.push_back(point);
+		tileMap[point] = x;
+	}
+	
+
+	KDTree<3> tree(tiles);
+	int row = theSource.getRows();
+	int col = theSource.getColumns();
+	MosaicCanvas* canvas = new MosaicCanvas(row, col);
+
+	for(int i = 0; i < row; i++){
+		for(int j = 0; j < col; j++){
+			LUVAPixel pixel = theSource.getRegionColor(i, j);			
+			Point<3> query = convertToXYZ(pixel);
+			canvas->setTile(i, j, &(theTiles[tileMap[tree.findNearestNeighbor(query)]]));
+		}
+	}
+
+	return canvas;
 }
 

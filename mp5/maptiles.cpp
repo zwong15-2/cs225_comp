@@ -14,10 +14,13 @@ using namespace std;
 Point<3> convertToXYZ(LUVAPixel pixel) {
     return Point<3>( pixel.l, pixel.u, pixel.v );
 }
-
+/**Constructs image mosaic out of a given source image
+ * and tile images. Stores the collected tile images
+ * and its colors. Finds nearest neighbor coloring point
+ * that would best match source image color. Returns mosaic**/
 MosaicCanvas* mapTiles(SourceImage const& theSource,
-                       vector<TileImage>& theTiles)
-{
+                       vector<TileImage>& theTiles){
+
     /**
      * @todo Implement this function!
      */

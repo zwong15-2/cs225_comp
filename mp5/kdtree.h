@@ -268,15 +268,19 @@ class KDTree
 
 	int partition(vector<Point<Dim>>& list, int left, int right, int pIndex, int dimension);
 
-	int cal_distance(const Point<Dim>& point1, const Point<Dim>& point2) const;
+	double cal_distance(const Point<Dim>& point1, const Point<Dim>& point2) const;
 
-	void findNearestNeighbor_helper(const Point<Dim>& query, Point<Dim>& currentBest, int left, int right, int dimension, int min_distance, bool & first) const;
+	void findNearestNeighbor_helper(const Point<Dim>& query,  Point<Dim>& currentBest, int left, int right, int dimension, double& distance, bool& first) const;
 
 	void destroy();
 	
-	typename KDTree<Dim>::KDTreeNode* copy(const KDTreeNode* node);
+	typename KDTree<Dim>::KDTreeNode* copy(const KDTreeNode*& node);
 	
-	void destroy(KDTreeNode* node);
+	void destroy(KDTreeNode*& node);
+
+	Point<Dim> findNearestNeighbor_helper2(const Point<Dim>& target, const Point<Dim>& currentBest, const Point<Dim>& potential) const;
+	
+	Point<Dim> FNN_helper(const Point<Dim>& target, const Point<Dim>& currentBest, const Point<Dim>& potential) const;
 
 	
 };

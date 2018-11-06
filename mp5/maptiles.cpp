@@ -27,12 +27,12 @@ MosaicCanvas* mapTiles(SourceImage const& theSource,
 	
 	map<Point<3>, int> tileMap;
 	vector<Point<3>> tiles;
-	tiles.resize(theTiles.size());
+//	tiles.resize(theTiles.size());
 	for(size_t x = 0; x < theTiles.size(); x++){
 
 		LUVAPixel p = theTiles[x].getAverageColor();
-		double arr[3] = {p.l, p.u, p.v };
-		Point<3> point(arr);
+	//	double arr[3] = {p.l, p.u, p.v};
+		Point<3> point = convertToXYZ(p);
 		tiles.push_back(point);
 		tileMap[point] = x;
 	}

@@ -75,6 +75,7 @@ KDTree<Dim>::KDTree(const vector<Point<Dim>>& newPoints)
      */
 	points = newPoints;
 	size = newPoints.size();
+	root = NULL;
 
 	if(newPoints.empty() == true){
 		root = NULL;
@@ -117,7 +118,7 @@ KDTree<Dim>::~KDTree() {
    * @todo Implement this function!
    */
 
-//	destroy();
+	destroy();
 }
 
 /**Finds the nearest neighboring Point to 

@@ -278,10 +278,6 @@ class KDTree
 	
 	void destroy(KDTreeNode* node);
 
-	Point<Dim> findNearestNeighbor_helper2(const Point<Dim>& target, const Point<Dim>& currentBest, const Point<Dim>& potential) const;
-	
-	Point<Dim> FNN_helper(const Point<Dim>& target, const Point<Dim>& currentBest, const Point<Dim>& potential) const;
-
 	
 };
 

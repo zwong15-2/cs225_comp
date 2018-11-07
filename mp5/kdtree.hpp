@@ -119,6 +119,7 @@ KDTree<Dim>::~KDTree() {
 
 //	destroy();
 }
+
 /**Finds the nearest neighboring Point to 
  * the parameter point in the KDTree**/
 template <int Dim>
@@ -136,10 +137,8 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
 
 	return currentBest;
 
-/*	Point <Dim> test = findNearestNeighbor_helper(query, points[(points.size()-1)/2], 0, points.size()-1, 0);
-	
-	return test;*/
 }
+
 /**Helper function for KDTree constructor.
  * Finds the median index and creates the nodes
  * through recursive calls. Nodes placed through
@@ -268,49 +267,9 @@ void  KDTree<Dim>::findNearestNeighbor_helper(const Point<Dim>& query, Point<Dim
 		}
 	}
 	return;
-
-/*	int median = (right + left)/2;
-	Point<Dim> answer = currentBest;
-	bool first = true;
-	int x = 0;
-	int i = 0;
-	
-	Point<Dim> temp = points[median];
-	answer = findNearestNeighbor_helper2(query, currentBest, points[left]);
-
-	if(smallerDimVal(query, points[median], dimension)){
-		if(left < median){
-			answer = findNearestNeighbor_helper(query, currentBest, left, median - 1, (dimension + 1) % Dim);
-			first = true;
-		}
-	}
-
-	if(smallerDimVal(points[median], query, dimension)){
-		if(right > median){
-			answer = findNearestNeighbor_helper(query, currentBest, median + 1, right, (dimension + 1) % Dim);
-			first = false;
-		}
-	}
-
-	answer = FNN_helper(query, answer, points[median]);
-
-	while(i != Dim){
-		x += (query[i] - answer[i]) * (query[i] - answer[i]);
-		i++;
-	}
-
-	if( (temp[dimension] - query[dimension]) * (temp[dimension] - query[dimension]) <= x){
-		if(first == true && right > median){
-			answer = findNearestNeighbor_helper(query, answer, median + 1, right, (dimension + 1) % Dim);
-		}
-		else if( left < median && first == false){
-			answer = findNearestNeighbor_helper(query, answer, left, median - 1, (dimension + 1) % Dim);
-		}
-	}
-
-	return answer;*/
 	
 }
+
 /**Calculates the distance between two
  * parameter Points. Used in neighbor helper
  * function**/
@@ -356,29 +315,4 @@ void KDTree<Dim>::destroy(KDTreeNode* node){
 		destroy(node->right);
 		delete node;
 	}
-}
-
-template <int Dim>
-Point<Dim> KDTree<Dim>::findNearestNeighbor_helper2(const Point<Dim>& target, const Point<Dim>& currentBest, const Point<Dim>& potential) const{
-	Point<Dim> answer = currentBest;
-	Point<Dim> temp = potential;
-	if(left == right){
-		if(shouldReplace(target, answer, temp) == true){
-			answer = temp;
-			return answer;
-		}
-		answer = currentBest;
-		return answer;
-	}
-	return answer;
-}
-
-template <int Dim>
-Point<Dim> KDTree<Dim>::FNN_helper(const Point<Dim>& target, const Point<Dim>& currentBest, const Point<Dim>& potential) const{
-	Point<Dim> answer = currentBest;
-	Point<Dim> temp = potential;
-	if(shouldReplace(target, answer, temp) == true){
-		answer = temp;
-	}
-	return answer;
 }

@@ -1,0 +1,1 @@
+You feel the guilt and confess. You explain the whole credential story to your professor. Once finished, your professor acknowledges the etched marks because he was the one who put them there. You both realize you are guys are both BIG fans of Lebron James and begin sharing stories. FIN

@@ -1,0 +1,1 @@
+You decide to hold your ground and continue moving back. When you finally make your way to the back of the crowd, you notice a silver quarter lying on the ground. This just so happens to be the last quarter needed to do your laundry after not doing it for a week. Good choice not going up. FIN

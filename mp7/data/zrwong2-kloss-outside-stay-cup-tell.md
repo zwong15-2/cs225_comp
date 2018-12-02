@@ -1,0 +1,1 @@
+You decide that you worked hard on this plan and tell the guy the water was not Karlie not him. Unfazed by your response, the guy tells you that Karlie only drinks bottles of water not cups. Regretting your decision to get a cup of water, you wish you had a time machine to do it all over. FIN

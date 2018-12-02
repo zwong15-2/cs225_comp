@@ -1,0 +1,1 @@
+You decide you want a picture. Karlie brings over one of her assistants to take a photo of you guys. With the photo taken, Karlie once again thanks you for the water and returns to set. You eagerly post the photo of you and Karlie on all your social media platforms. FIN

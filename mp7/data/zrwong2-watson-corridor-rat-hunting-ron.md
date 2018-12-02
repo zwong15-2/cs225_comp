@@ -1,0 +1,1 @@
+You decide to pass Ron the pudding first. He gracefully accepts and sneers at Hermione. He thens tells you as a token of appreciation, he will put in a good word with Harry about making the Quidditch team. Everyone loves Quidditch players. FIN

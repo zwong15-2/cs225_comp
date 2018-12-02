@@ -1,0 +1,1 @@
+You decide to give Hermione the pudding first. She gracefully accepts and sneers at Ron. She then tells you as repayment she can help you with your upcoming Potions exam. You realize you stink at Potions because of Professor Snape. There is hope. FIN

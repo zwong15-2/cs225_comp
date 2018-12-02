@@ -1,0 +1,1 @@
+You decide to not answer the FaceTime call from your mom and slowly move your phone back down into your pocket. Another vibration occurs and you see a tweet notification coming from Elon Musk. You open it and find out Elon posted a picture with him and a woman that you realize is your mom. FIN

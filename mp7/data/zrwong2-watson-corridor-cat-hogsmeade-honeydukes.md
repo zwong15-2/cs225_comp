@@ -1,0 +1,1 @@
+You decide you want some sweets and enter HoneyDukes. Upon entering, you see Ginny and Harry and they tell you that you made the Quidditch team. Now you can collect your winnings from Hermione as you bet her you would make the team. FIN

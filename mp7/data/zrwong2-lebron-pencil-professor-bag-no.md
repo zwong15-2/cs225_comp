@@ -1,0 +1,1 @@
+You decide to believe your professor is not telling the truth. You inch your way closer to him. The professor becomes defensive and insists you leave the classroom at once. As you follow his orders for the sake of your grades. As you exit, you hold the door open for a man that kind of resembles Lebron James. FIN

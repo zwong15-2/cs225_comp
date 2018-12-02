@@ -1,0 +1,1 @@
+You decide to lie and tell the director you walked into the wrong set. You tell him you are a studio worker and took a wrong turn which led to this set. The director quickly dismisses you and you are escorted out. As you are being escorted out, you see Emma Watson getting prepped for her scene. She is your lifelong celebrity crush. If only you had a Time Turner right now. FIN

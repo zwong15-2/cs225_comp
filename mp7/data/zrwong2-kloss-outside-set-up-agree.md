@@ -1,0 +1,1 @@
+You agree with the director and put on the fox-furred vest. Once finished, you hit the set and totally rock the photoshoot wearing a fox-furred vest. Afterwards, Karlie compliments you on your nice fasion style. Day made. FIN

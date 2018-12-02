@@ -1,0 +1,1 @@
+You decide to follow the right tunnel. As you walk, you encounter Fawkes the phoenix and Ginny running towards you. Fawkes immediately conjures up the strength flys you and Ginny out of the Chamber of Secrets. FIN

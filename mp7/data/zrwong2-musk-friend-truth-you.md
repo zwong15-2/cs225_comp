@@ -1,0 +1,1 @@
+You decide to use your own hand and take the outstretched hand. Flash. You are quickly transported somewhere in the heavens. You awake to find yourself floating around in what appears to be a bedroom.Behind you is a man in a spacesuit. You turn around and see it is Elon Musk. The symbol of the suit reads SpaceX and you look out the window just as the rocket passes Mars. FIN

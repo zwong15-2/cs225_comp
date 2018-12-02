@@ -1,0 +1,1 @@
+You decide to go for a glass of ButterBeer at Three Broomsticks. You order a glass of ButterBeer and look to find an open seat. You see an open seat by Neville and Hermione. You sit down just in time to hear them discussing the Herbology as you are not doing well in that class. Clutch. FIN

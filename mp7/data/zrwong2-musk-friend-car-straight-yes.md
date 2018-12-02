@@ -1,0 +1,1 @@
+You decide to answer the FaceTime call from your mom. Your mom beings screaming with excitement. She tells you a man named Elon Musk accidently ran into your scooter and gifted you a brand new Tesla as repayment for the incident. FIN

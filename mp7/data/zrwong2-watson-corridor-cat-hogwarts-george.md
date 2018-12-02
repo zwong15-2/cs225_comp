@@ -1,0 +1,1 @@
+You decide to guess that George is on the right. You guess wrong. Being upset you did not know who is who, Fred and George insist they will tell Hermione that you cheated off her during their Charms class quiz. Good luck Charlie. FIN

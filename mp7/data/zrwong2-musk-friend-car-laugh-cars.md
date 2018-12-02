@@ -1,0 +1,1 @@
+You tell the mysterious man you guys were just talking about cars. He smiles and removes his sunglasses. The man is Elon Musk. Astonished, Elon turns and makes is way to his Tesla in a nearby parking lot saying he might have some knowledge on cars too. FIN

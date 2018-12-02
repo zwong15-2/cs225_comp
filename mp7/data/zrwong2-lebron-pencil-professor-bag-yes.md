@@ -1,0 +1,1 @@
+You believe that your professor is telling the truth. You ask if he needs any help looking, but he turns your help down. You turn and leave the classroom. Back in the room, your professor picks out his phone and answers his vibrating FaceTime call. Once answered, Lebron James is on the screen. FIN

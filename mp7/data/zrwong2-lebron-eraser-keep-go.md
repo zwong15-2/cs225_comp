@@ -1,0 +1,1 @@
+You decide to keep walking and ignore the student. You continue walking and eventually make it to your apartment. Sitting on your couch, you pull out the tickets taken from the classroom and realize these tickets are for a game that happened last season. FIN

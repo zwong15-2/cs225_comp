@@ -1,0 +1,1 @@
+You decide to guess that Fred is on the right. You guess correctly. Happy that you know who is who, Fred and George present you with the Marauders Map. You can now roam freely at will. You can also find Hermione easily to help you with your Charms quiz. FIN

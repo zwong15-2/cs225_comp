@@ -1,0 +1,1 @@
+You decide to turn down the suggestion from the director. The director soon realizes you are correct and demands you wear a giant Roblox suit. You hit the photoshoot in the Roblox suit and suddenly receive boos as a copycat outfit. Your career as an internet meme has begun. FIN

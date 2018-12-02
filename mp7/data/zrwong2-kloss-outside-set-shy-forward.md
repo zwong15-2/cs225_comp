@@ -1,0 +1,1 @@
+You decide to go forward on set. You grab the outstretched hand from Karlie and introduce yourself to the crowd. The photographer directs you where to model. Remembering you have not done laundry in a week, you insist you do not model alongside Karlie. Taken as an insult, she angrily walks off set. Better luck next time. FIN

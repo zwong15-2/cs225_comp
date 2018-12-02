@@ -1,0 +1,1 @@
+You decide to follow the left side tunnel. As you walk down the left side tunnel you find Ron and Hermione. They see you and tell you they know the way out as they grasping the Marauders Map. Hermione is holding a basilisk fang. No time to waste if you want to defeat Voldemort. FIN

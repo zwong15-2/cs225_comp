@@ -26,6 +26,37 @@
  */
 NimLearner::NimLearner(unsigned startingTokens) : g_(true, true) {
     /* Your code goes here! */
+	for(int i = startingTokens; i >= 0; i--){
+		string p1_ = "p1-" + std::to_string(i);
+		string p2_ = "p2-" + std::to_string(i);
+		g_.insertVertex(p1_);
+		g_.insertVertex(p2_);
+	}
+
+	for(int i = startingTokens; i >= 2; i--){
+		string p1_1 = "p1-" + std::to_string(i);
+		string p2_1 = "p2-" + std::to_string(i);
+		string p1_2 = "p1-" + std::to_string(i-1);
+		string p2_2 = "p2-" + std::to_string(i-1);
+		string p1_3 = "p1-" + std::to_string(i-2);
+		string p2_3 = "p2-" + std::to_string(i-2);
+		Vertex v1_1 = p1_1;
+		Vertex v2_1 = p2_1;
+		g_.insertEdge(v1_1, p2_2);
+		g_.setEdgeWeight(v1_1, p2_2, 0);
+		g_.insertEdge(v1_1, p2_3);
+		g_.setEdgeWeight(v1_1, p2_3, 0);
+		g_.insertEdge(v2_1, p1_2);
+		g_.setEdgeWeight(v2_1, p1_2, 0);
+		g_.insertEdge(v2_1, p1_3);
+		g_.setEdgeWeight(v2_1, p1_3, 0);
+	}
+
+	g_.insertEdge(("p1-1"), ("p2-0"));
+	g_.setEdgeWeight(("p1-1"), ("p2-0"), 0);
+	g_.insertEdge(("p2-1"), ("p1-0"));
+	g_.setEdgeWeight(("p2-1"), ("p1-0"), 0);
+	startingVertex_ = ("p1-" + std::to_string(startingTokens));
 }
 
 /**
@@ -38,9 +69,19 @@ NimLearner::NimLearner(unsigned startingTokens) : g_(true, true) {
  * @returns A random path through the state space graph.
  */
 std::vector<Edge> NimLearner::playRandomGame() const {
-  vector<Edge> path;
- /* Your code goes here! */
-  return path;
+  	vector<Edge> path;
+ 	/* Your code goes here! */
+	Vertex start = startingVertex_;
+
+	while(g_.getAdjacent(start).size() != 0){
+		vector<Vertex> adjs = g_.getAdjacent(start);
+		int step = rand() % adjs.size();
+		Vertex next = adjs[step];
+		path.push_back(g_.getEdge(start, next));
+		start = next;
+	}
+  
+  	return path;
 }
 
 /*
@@ -61,6 +102,16 @@ std::vector<Edge> NimLearner::playRandomGame() const {
  */
 void NimLearner::updateEdgeWeights(const std::vector<Edge> & path) {
  /* Your code goes here! */
+	int idx = path.size() - 1;
+	int x = 1;
+
+	while(idx >= 0){
+		Edge edge = path[idx];
+		int old_weight = g_.getEdgeWeight(edge.source, edge.dest);
+		g_.setEdgeWeight(edge.source, edge.dest, old_weight + x);
+		x *= -1;
+		idx--;
+	}
 }
 
 /**

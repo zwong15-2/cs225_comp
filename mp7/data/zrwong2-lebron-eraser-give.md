@@ -1,1 +1,0 @@
-You decide to hand the tickets to your professor. You walk over to your professor and show him the tickets. In shock, the professor mentions he has been looking for those tickets all day. He explains it is the reason why he was searching through his bag. As a reward he said that you can get an extra homework drop. FIN

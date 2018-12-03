@@ -1,1 +1,1 @@
-You decide to panic. You begin to shout and say you do not know anything. The main in the quit quickly dismisses youand you leave. Back in the room, the main in the suit reveals himself to your professor to be Lebron James. They both congradulate each other on the prank.
+You decide to panic. You begin to shout and say you do not know anything. The main in the quit quickly dismisses you and you leave. Back in the room, the main in the suit reveals himself to your professor to be Lebron James. They both congradulate each other on the prank. FIN

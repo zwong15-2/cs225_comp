@@ -64,5 +64,5 @@ private:
   Vertex source_;
   Vertex sink_;
 
-  int maxFlow_;
+  int maxFlow_ = 0;
 };

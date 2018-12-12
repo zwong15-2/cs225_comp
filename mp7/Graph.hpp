@@ -6,6 +6,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <iterator>
+#include <list>
+#include <algorithm>
 
 /**
 * @return The number of vertices in the Graph
@@ -34,10 +36,6 @@ unsigned int Graph<V,E>::degree(const V & v) const {
   // TODO: Part 2
   unsigned int count;
   std::string v1_key;
- /* auto it = adjList.find(v)->second.begin();
-  while(it != adjList.find(v)->second.end()){
-		count++;
-  }*/
   for(std::pair<std::string, V &> find_key : vertexMap){
 	if(find_key.second == v){
 		v1_key = find_key.first;
@@ -74,11 +72,11 @@ V & Graph<V,E>::insertVertex(std::string key) {
 template <class V, class E>
 void Graph<V,E>::removeVertex(const std::string & key) {
   // TODO: Part 2
+  V vertex = vertexMap.at(key);
   vertexMap.erase(key);
-  V vertex = vertexMap[key];
   std::list<edgeListIter> vertex_edgeIter = adjList.at(key);
   for(typename std::list<edgeListIter>::iterator it = vertex_edgeIter.begin(); it != vertex_edgeIter.end(); ++it){
-	if(it->get().source() == vertex || it->get().dest() == vertex){
+	if((**it).get().source() == vertex || (**it).get().dest() == vertex){
 		edgeList.erase(*it);
 	}
   }
@@ -96,34 +94,21 @@ template <class V, class E>
 E & Graph<V,E>::insertEdge(const V & v1, const V & v2) {
   // TODO: Part 2
   E & e = *(new E(v1, v2));
-  std::string v1_key;
-  std::string v2_key;
+  std::string v1_key = v1.key();
+  std::string v2_key = v2.key();
   edgeList.push_front(e);
   typename std::list<E_byRef>::iterator it = edgeList.begin();
-  for(std::pair<std::string, V &> key_ : vertexMap){
-		if(key_ .second == v1){
-			v1_key = key_.first;
-		}
-		if(key_.second == v2){
-			v2_key = key_.first;
-		}
-  }
-  for(std::pair<std::string, std::list<edgeListIter>> adjList_insert : adjList){
-	if(adjList_insert.first == v1_key){
-		adjList_insert.second.push_front(it);
-	}
-  	if(adjList_insert.first == v2_key){
-		adjList_insert.second.push_front(it);
-	}
-  }
-
+  std::list<edgeListIter> vertex_1 = adjList.at(v1_key);
+  std::list<edgeListIter> vertex_2 = adjList.at(v2_key);
+  adjList.at(v1_key).push_front(it);
+  adjList.at(v2_key).push_front(it);
   return e;
 }
 
 
 /**
 * Removes an Edge from the Graph
-* @param key1 The key of the ource Vertex
+* @param key1 The key of the source Vertex
 * @param key2 The key of the destination Vertex
 */
 template <class V, class E>
@@ -134,14 +119,14 @@ void Graph<V,E>::removeEdge(const std::string key1, const std::string key2) {
   V vertex_1 = vertexMap[key1];
   V vertex_2 = vertexMap[key2];
   for(typename std::list<edgeListIter>::iterator it = vertex1_listIter.begin(); it != vertex1_listIter.end(); ++it){
-	if(it->get().source() == vertex_2){
-		removeEdge(it);
+	if((**it).get().source() == vertex_1 && (**it).get().dest() == vertex_2){
+		removeEdge(*it);
 		vertex1_listIter.erase(it);
 	}
   }
   for(typename std::list<edgeListIter>::iterator it2 = vertex2_listIter.begin(); it2 != vertex2_listIter.end(); ++it2){
-	if(it2->get().source() == vertex_1){
-	    removeEdge(it2);
+	if((**it2).get().source() == vertex_1 && (**it2).get().dest() == vertex_2){
+	    removeEdge(*it2);
 		vertex2_listIter.erase(it2);
 	}
   }
@@ -174,10 +159,11 @@ const std::list<std::reference_wrapper<E>> Graph<V,E>::incidentEdges(const std::
   std::list<edgeListIter> vertex_listIter = adjList.at(key);
 
   for(typename std::list<edgeListIter>::iterator it = vertex_listIter.begin(); it != vertex_listIter.end(); ++it){
-	if(it->get() == vertex){
-		edges.push_back(*it.get());
-	}
+		if((**it).get().source() == vertex || (**it).get().dest() == vertex){
+			edges.push_back((**it).get());
+		}
   }
+  
   return edges;
 }
 
@@ -193,13 +179,31 @@ bool Graph<V,E>::isAdjacent(const std::string key1, const std::string key2) cons
   // TODO: Part 2
   V vertex_1 = vertexMap.at(key1);
   V vertex_2 = vertexMap.at(key2);
+  V vertex_fin("");
   std::list<edgeListIter> vertex1_edgeIter = adjList.at(key1);
   std::list<edgeListIter> vertex2_edgeIter = adjList.at(key2);
-  std::list<edgeListIter> final_edgeIter = std::min(vertex1_edgeIter, vertex2_edgeIter);
+  std::list<edgeListIter> final_edgeIter;
+  if(vertex1_edgeIter.size() < vertex2_edgeIter.size()){
+		final_edgeIter = vertex1_edgeIter;
+		vertex_fin = vertex_1;
+  }
+  else{
+		final_edgeIter = vertex2_edgeIter;
+		vertex_fin = vertex_2;
+  }
   for(typename std::list<edgeListIter>::iterator it = final_edgeIter.begin(); it != final_edgeIter.end(); ++it){
-	if(it->get().source() == vertex_1 || it->get().source() == vertex_2 || it->get().dest() == vertex_1 || it->get().dest() == vertex_2){
-		return true;
-	}
+		if((**it).get().directed() == true){
+			if((**it).get().dest() == vertex_fin){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		if((**it).get().directed() == false){
+				if((**it).get().source() == vertex_1 || (**it).get().source() == vertex_2 || (**it).get().dest() == vertex_1 || (**it).get().dest() == vertex_2){
+				return true;
+		}		}
   }
   
   return false;

@@ -1,4 +1,4 @@
-/*#include "../cs225/catch/catch.hpp"
+#include "../cs225/catch/catch.hpp"
 
 #include "../Graph.h"
 #include "../DirectedEdge.h"
@@ -29,4 +29,4 @@ TEST_CASE("Graphs::isAdjacent with `DirectedEdge`s does not find the directed ed
   g.insertEdge("a", "b");
   
   REQUIRE( g.isAdjacent(b, a) == false );
-}*/
+}

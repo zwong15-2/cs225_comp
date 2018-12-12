@@ -52,6 +52,21 @@ Graph<Vertex, Edge> createTestGraph() {
   return g;
 }
 
+/*TEST_CASE("Graph::Remove Vertex and Remove Edge", "[weight=1]") {
+  Graph<Vertex, Edge> g;
+
+  g.insertVertex("a");
+  g.insertVertex("b");
+  g.removeVertex("a");
+  
+  REQUIRE( g.size() == 1 );
+
+  g.insertEdge("a","b");
+  g.removeEdge("a","b");
+
+  REQUIRE( g.edges() == 0 );
+
+}*/
 
 
 TEST_CASE("Graph::size returns the vertex count", "[weight=1]") {

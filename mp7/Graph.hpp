@@ -35,12 +35,7 @@ template <class V, class E>
 unsigned int Graph<V,E>::degree(const V & v) const {
   // TODO: Part 2
   unsigned int count;
-  std::string v1_key;
-  for(std::pair<std::string, V &> find_key : vertexMap){
-	if(find_key.second == v){
-		v1_key = find_key.first;
-	}
-  }
+  std::string v1_key = v.key();
   std::list<std::reference_wrapper<E>> incident_edges = incidentEdges(v1_key);
   count = incident_edges.size();
   return count;
@@ -98,8 +93,6 @@ E & Graph<V,E>::insertEdge(const V & v1, const V & v2) {
   std::string v2_key = v2.key();
   edgeList.push_front(e);
   typename std::list<E_byRef>::iterator it = edgeList.begin();
-  std::list<edgeListIter> vertex_1 = adjList.at(v1_key);
-  std::list<edgeListIter> vertex_2 = adjList.at(v2_key);
   adjList.at(v1_key).push_front(it);
   adjList.at(v2_key).push_front(it);
   return e;
@@ -116,20 +109,22 @@ void Graph<V,E>::removeEdge(const std::string key1, const std::string key2) {
   // TODO: Part 2
   std::list<edgeListIter> vertex1_listIter = adjList.at(key1);
   std::list<edgeListIter> vertex2_listIter = adjList.at(key2);
-  V vertex_1 = vertexMap[key1];
-  V vertex_2 = vertexMap[key2];
+  V vertex_1 = vertexMap.at(key1);
+  V vertex_2 = vertexMap.at(key2);
   for(typename std::list<edgeListIter>::iterator it = vertex1_listIter.begin(); it != vertex1_listIter.end(); ++it){
-	if((**it).get().source() == vertex_1 && (**it).get().dest() == vertex_2){
+	if((**it).get().dest() == vertex_2){
 		removeEdge(*it);
-		vertex1_listIter.erase(it);
+        vertex1_listIter.erase(it);
+		}
 	}
-  }
+
   for(typename std::list<edgeListIter>::iterator it2 = vertex2_listIter.begin(); it2 != vertex2_listIter.end(); ++it2){
-	if((**it2).get().source() == vertex_1 && (**it2).get().dest() == vertex_2){
-	    removeEdge(*it2);
+	if((**it2).get().source() == vertex_1){
 		vertex2_listIter.erase(it2);
 	}
   }
+adjList.at(key1) = vertex1_listIter;
+adjList.at(key2) = vertex2_listIter;
 }
 
 
@@ -141,7 +136,7 @@ void Graph<V,E>::removeEdge(const std::string key1, const std::string key2) {
 template <class V, class E>
 void Graph<V,E>::removeEdge(const edgeListIter & it) {
   // TODO: Part 2
-  edgeList.erase(*it);
+  edgeList.erase(it);
 }
 
 
@@ -202,9 +197,9 @@ bool Graph<V,E>::isAdjacent(const std::string key1, const std::string key2) cons
 		}
 		if((**it).get().directed() == false){
 				if((**it).get().source() == vertex_1 || (**it).get().source() == vertex_2 || (**it).get().dest() == vertex_1 || (**it).get().dest() == vertex_2){
-				return true;
-		}		}
+					return true;
+				}	
+		}	
   }
-  
-  return false;
+ return false; 
 }
